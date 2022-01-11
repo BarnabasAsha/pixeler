@@ -1,13 +1,19 @@
 <template>
-  <button>
-    <img src="" alt="" />
-  </button>
+  <router-link to="/photo/222">
+    <figure class="image">
+      <img :src="src" alt="" />
+    </figure>
+  </router-link>
 </template>
 
 <script>
 export default {
   name: "Image",
+  props: {
+    src: String,
+    id: String,
+  },
 };
 </script>
 
-<style lang="sass" src="../styles/app.vue"></style>
+<style lang="scss" src="../styles/app.scss"></style>
