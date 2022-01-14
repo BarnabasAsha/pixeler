@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/photo/222">
+  <router-link :to="'/photo/' + id">
     <figure class="image">
       <img :src="src" alt="" />
     </figure>

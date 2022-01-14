@@ -2,17 +2,17 @@
   <div class="photo_view">
     <figure class="photo_view_img">
       <div class="img_wrapper">
-        <img
-          src="https://images.unsplash.com/photo-1641881240474-1c00bf53f807?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=329&q=80"
-          alt=""
-        />
+        <img :src="getPhoto ? getPhoto.urls.regular : ''" alt="" />
       </div>
       <figcaption>
         <figure class="user">
           <div class="user_img">
-            <img src="" alt="" />
+            <img
+              :src="getPhoto ? getPhoto.user.profile_image.small : ''"
+              alt=""
+            />
           </div>
-          <div class="user_name"></div>
+          <div class="user_name">{{ getPhoto ? getPhoto.user.name : "" }}</div>
         </figure>
       </figcaption>
     </figure>
@@ -22,3 +22,26 @@
     </router-link>
   </div>
 </template>
+
+<script>
+export default {
+  name: "Photo",
+  computed: {
+    id() {
+      return this.$route.params.id;
+    },
+    getPhoto() {
+      const photoProxy = this.$store.state.photos;
+      const photos = JSON.parse(JSON.stringify(photoProxy));
+      return photos.photos.filter((photo) => photo.id === this.id)[0];
+    },
+  },
+  created() {
+    if (!this.getPhoto) {
+      this.$router.push("/pageNotFound");
+    }
+  },
+};
+</script>
+
+<style lang="scss" src="../styles/app.scss"></style>

@@ -1,6 +1,11 @@
 <template>
   <Header />
   <Search />
+  <div class="query">
+    <h2 v-if="query !== ''">Results for {{ query }}</h2>
+  </div>
+  <Loader v-if="loading" />
+  <Error v-if="!allPhotos.length" />
   <Gallery :photos="allPhotos" />
   <router-view />
 </template>
@@ -9,7 +14,9 @@
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
 import Search from "@/components/Search.vue";
-import Gallery from "../components/Gallery.vue";
+import Gallery from "@/components/Gallery.vue";
+import Loader from "@/components/Loader.vue";
+import Error from "@/components/Error.vue";
 
 import { mapGetters } from "vuex";
 
@@ -19,13 +26,10 @@ export default {
     Header,
     Search,
     Gallery,
+    Loader,
+    Error,
   },
-  data() {
-    return {
-      loading: true,
-    };
-  },
-  computed: mapGetters(["allPhotos"]),
+  computed: mapGetters(["allPhotos", "loading", "query"]),
   created() {
     this.initPhotos();
   },
@@ -37,7 +41,6 @@ export default {
           order_by: "latest",
           per_page: 12,
         });
-        this.loading = false;
       } catch (error) {
         console.log(error.response.data);
       }
@@ -45,3 +48,5 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" src="../styles/app.scss"></style>
