@@ -23,12 +23,12 @@ export default {
     async getPhoto() {
       if (this.query !== "") {
         try {
+          await this.$store.dispatch("updateQuery", this.query);
           await this.$store.dispatch("fetchPhotos", {
             query: this.query,
             order_by: "latest",
             per_page: 12,
           });
-          await this.$store.dispatch("updateQuery", this.query);
         } catch (error) {
           console.log(error.response.data);
         }
