@@ -37,7 +37,7 @@ export default {
     async initPhotos() {
       try {
         await this.$store.dispatch("fetchPhotos", {
-          query: "African",
+          query: "Random",
           order_by: "latest",
           per_page: 12,
         });
