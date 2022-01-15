@@ -29,6 +29,7 @@ const mutations = {
   resetPhotos(state) {
     state.photos = [];
     state.query = "";
+    state.loading = true;
   },
   setPhotos(state, payload) {
     state.photos = payload;

@@ -5,7 +5,7 @@
     <h2 v-if="query !== ''">Results for {{ query }}</h2>
   </div>
   <Loader v-if="loading" />
-  <Error v-if="!allPhotos.length && !loading" />
+  <Error v-if="!loading && allPhotos.length <= 0" />
   <Gallery :photos="allPhotos" />
   <router-view />
 </template>
